@@ -26,9 +26,11 @@ extensions = [".mp4", ".mkv"]
 for dirpath, dirnames, filenames in os.walk(directory):
     for filename in [f for f in filenames]:
         if filename[-4:] in extensions and not is_show(filename):
+            filename = filename.replace(" ", ".")
             movie_name_parts = filename.split(".")
             movie_name = ""
             for idx, i in enumerate(movie_name_parts):
                 if i.isdigit():
-                    movie_name = movie_name_parts[:idx]
-            print(" ".join(movie_name))
+                    movie_name = " ".join(movie_name_parts[:idx])
+            if movie_name:
+                print(movie_name + ": " + filename) 
