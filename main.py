@@ -30,7 +30,8 @@ for dirpath, dirnames, filenames in os.walk(directory):
             movie_name_parts = filename.split(".")
             movie_name = ""
             for idx, i in enumerate(movie_name_parts):
-                if i.isdigit():
-                    movie_name = " ".join(movie_name_parts[:idx])
+                if i.isdigit() and len(i) == 4:
+                    movie_name = " ".join(movie_name_parts[:idx]) + f" {i}"
+                    break
             if movie_name:
-                print(movie_name + ": " + filename) 
+                print(movie_name + ":                          " + filename) 
