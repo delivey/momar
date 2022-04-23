@@ -2,7 +2,12 @@ import os
 import os.path
 import requests
 from bs4 import BeautifulSoup
+import json
 
+DATA_FILENAME = "data.json"
+
+datafile = open(DATA_FILENAME)
+ 
 def is_integer(str):
     try:
         int(str)
@@ -43,20 +48,30 @@ for dirpath, dirnames, filenames in os.walk(directory):
             if movie_name:
                 movies.append(movie_name)
 
-def get_imdb_id(name):
-    params = {
-        'q': name,
-        's': 'tt',
-        'ttype': 'ft',
-        'ref_': 'fn_ft',
-    }
-    r = requests.get("https://www.imdb.com/find", params=params)
-    soup = BeautifulSoup(r.text, "html.parser")
-    result = str(soup.select_one('td.result_text'))
-    id = result[result.index('href="/title/')+len('href="/title/'):result.index('/"')]
-    return id
+data = json.load(datafile)
 
+def get_imdb_id(name):
+    try:
+        return data[name]["id"]
+    except KeyError:
+        params = {
+            'q': name,
+            's': 'tt',
+            'ttype': 'ft',
+            'ref_': 'fn_ft',
+        }
+        r = requests.get("https://www.imdb.com/find", params=params)
+        soup = BeautifulSoup(r.text, "html.parser")
+        result = str(soup.select_one('td.result_text'))
+        id = result[result.index('href="/title/')+len('href="/title/'):result.index('/"')]
+
+        data[name] = {"id": id}
+
+        return id
 
 for idx, movie in enumerate(movies):
-    imdb = get_imdb_id(movie)
+    imdb = get_imdb_id(movie) 
     print(f"{idx}. {movie}: {imdb}")
+
+with open(DATA_FILENAME, 'w') as json_file:
+    json.dump(data, json_file, indent=4)
