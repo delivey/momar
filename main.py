@@ -8,6 +8,9 @@ def is_integer(str):
     except ValueError:
         return False
 
+def cap_sentence(s):
+  return ' '.join(w[:1].upper() + w[1:] for w in s.split(' ')) 
+
 # TODO: make more complete
 def is_show(name):
     name = name.upper()
@@ -31,7 +34,7 @@ for dirpath, dirnames, filenames in os.walk(directory):
             movie_name = ""
             for idx, i in enumerate(movie_name_parts):
                 if i.isdigit() and len(i) == 4:
-                    movie_name = " ".join(movie_name_parts[:idx]) + f" {i}"
+                    movie_name = cap_sentence(" ".join(movie_name_parts[:idx])) + f" {i}"
                     break
             if movie_name:
                 print(movie_name + ":                          " + filename) 
