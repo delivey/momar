@@ -1,5 +1,7 @@
 import os
 import os.path
+import requests
+from bs4 import BeautifulSoup
 
 def is_integer(str):
     try:
@@ -26,6 +28,8 @@ def is_show(name):
 directory = "D:\Torrents"
 extensions = [".mp4", ".mkv"]
 
+movies = []
+
 for dirpath, dirnames, filenames in os.walk(directory):
     for filename in [f for f in filenames]:
         if filename[-4:] in extensions and not is_show(filename):
@@ -37,4 +41,22 @@ for dirpath, dirnames, filenames in os.walk(directory):
                     movie_name = cap_sentence(" ".join(movie_name_parts[:idx])) + f" {i}"
                     break
             if movie_name:
-                print(movie_name + ":                          " + filename) 
+                movies.append(movie_name)
+
+def get_imdb_id(name):
+    params = {
+        'q': name,
+        's': 'tt',
+        'ttype': 'ft',
+        'ref_': 'fn_ft',
+    }
+    r = requests.get("https://www.imdb.com/find", params=params)
+    soup = BeautifulSoup(r.text, "html.parser")
+    result = str(soup.select_one('td.result_text'))
+    id = result[result.index('href="/title/')+len('href="/title/'):result.index('/"')]
+    return id
+
+
+for idx, movie in enumerate(movies):
+    imdb = get_imdb_id(movie)
+    print(f"{idx}. {movie}: {imdb}")
