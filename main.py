@@ -48,6 +48,30 @@ for dirpath, dirnames, filenames in os.walk(directory):
             if movie_name:
                 movies.append(movie_name)
 
+def get_imdb_data(id, name):
+    try:
+        return data[name]["data"]
+    except KeyError:
+        url = f"https://www.imdb.com/title/{id}/"
+        r = requests.get(url)
+        soup = BeautifulSoup(r.text, "html.parser")
+        djson = json.loads(soup.find('script', type='application/json', id='__NEXT_DATA__').string)
+
+        length = djson["props"]["pageProps"]["aboveTheFoldData"]["runtime"]["seconds"]
+        rating = djson["props"]["pageProps"]["aboveTheFoldData"]["ratingsSummary"]["aggregateRating"]
+        genres = djson["props"]["pageProps"]["aboveTheFoldData"]["genres"]["genres"]
+        genres = [genre["text"] for genre in genres]
+
+        simplified = {
+            "length": length,
+            "rating": rating,
+            "genres": genres
+        }
+
+        data[name]["data"] = simplified 
+
+        return simplified
+
 data = json.load(datafile)
 
 def get_imdb_id(name):
@@ -71,7 +95,8 @@ def get_imdb_id(name):
 
 for idx, movie in enumerate(movies):
     imdb = get_imdb_id(movie) 
-    print(f"{idx}. {movie}: {imdb}")
+    movie_data = get_imdb_data(imdb, movie)
+    print(f"{idx}. {movie}: {', '.join(movie_data['genres'])}. ")
 
 with open(DATA_FILENAME, 'w') as json_file:
     json.dump(data, json_file, indent=4)
