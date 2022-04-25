@@ -30,7 +30,7 @@ class MovieManager:
             return False
 
     def cap_sentence(self, s):
-        return ' '.join(w[:1].upper() + w[1:] for w in s.split(' ')) 
+        return ' '.join(w[:1].upper() + w[1:] for w in s.split(' '))
 
     # TODO: make more complete
     def is_show(self, name):
@@ -56,14 +56,22 @@ class MovieManager:
                     movie_name = ""
                     for idx, i in enumerate(movie_name_parts):
                         if i.isdigit() and len(i) == 4:
-                            movie_name = self.cap_sentence(" ".join(movie_name_parts[:idx])) + f" {i}"
+                            movie_name = self.cap_sentence(
+                                " ".join(movie_name_parts[:idx])) + f" {i}"
                             break
                     if movie_name:
                         self.movies.append(movie_name)
 
+    def get_movie_data(self):
+        for movie in self.movies:
+            imdb = manager.get_imdb_id(movie)
+            manager.get_imdb_data(imdb, movie)
+        return self.data
+
     def get_movies(self):
         self.get_movie_names()
-        return self.movies
+        self.get_movie_data()
+        return self.data
 
     def get_imdb_data(self, id, name):
         try:
@@ -72,7 +80,8 @@ class MovieManager:
             url = f"https://www.imdb.com/title/{id}/"
             r = requests.get(url)
             soup = BeautifulSoup(r.text, "html.parser")
-            djson = json.loads(soup.find('script', type='application/json', id='__NEXT_DATA__').string)
+            djson = json.loads(
+                soup.find('script', type='application/json', id='__NEXT_DATA__').string)
 
             length = djson["props"]["pageProps"]["aboveTheFoldData"]["runtime"]["seconds"]
             rating = djson["props"]["pageProps"]["aboveTheFoldData"]["ratingsSummary"]["aggregateRating"]
@@ -85,10 +94,8 @@ class MovieManager:
                 "genres": genres
             }
 
-            self.data[name]["data"] = simplified 
-
+            self.data[name]["data"] = simplified
             return simplified
-
 
     def get_imdb_id(self, name):
         try:
@@ -103,18 +110,21 @@ class MovieManager:
             r = requests.get("https://www.imdb.com/find", params=params)
             soup = BeautifulSoup(r.text, "html.parser")
             result = str(soup.select_one('td.result_text'))
-            id = result[result.index('href="/title/')+len('href="/title/'):result.index('/"')]
+            id = result[result.index('href="/title/') + len('href="/title/'):result.index('/"')]
 
             self.data[name] = {"id": id}
 
             return id
 
+
 manager = MovieManager(DIRECTORY, DATA_FILENAME)
 movies = manager.get_movies()
+print(movies)
 
+"""
 for idx, movie in enumerate(movies):
     try:
-        imdb = manager.get_imdb_id(movie) 
+        imdb = manager.get_imdb_id(movie)
         movie_data = manager.get_imdb_data(imdb, movie)
         if movie_data["rating"] >= GREEN_RATING_THRESHOLD:
             color = Fore.GREEN
@@ -128,3 +138,4 @@ for idx, movie in enumerate(movies):
         manager.save_data()
 
 manager.save_data()
+"""
