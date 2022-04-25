@@ -3,6 +3,11 @@ import os.path
 import requests
 from bs4 import BeautifulSoup
 import json
+from colorama import init, Fore, Back, Style
+init(autoreset=True)
+
+YELLOW_RATING_THRESHOLD = 6
+GREEN_RATING_THRESHOLD = 8
 
 DATA_FILENAME = "data.json"
 datafile = open(DATA_FILENAME)
@@ -97,7 +102,14 @@ for idx, movie in enumerate(movies):
     try:
         imdb = get_imdb_id(movie) 
         movie_data = get_imdb_data(imdb, movie)
-        print(f"{idx}. {movie}: {', '.join(movie_data['genres'])}. ")
+        if movie_data["rating"] >= GREEN_RATING_THRESHOLD:
+            color = Fore.GREEN
+        elif movie_data["rating"] >= YELLOW_RATING_THRESHOLD:
+            color = Fore.YELLOW
+        else:
+            color = Fore.RED
+
+        print(color + f"{idx}. ({movie_data['rating']}) {movie}: {', '.join(movie_data['genres'])}. ")
     except:
         save_data()
 
