@@ -5,9 +5,12 @@ from bs4 import BeautifulSoup
 import json
 
 DATA_FILENAME = "data.json"
-
 datafile = open(DATA_FILENAME)
- 
+directory = "D:\Torrents"
+extensions = [".mp4", ".mkv"]
+movies = []
+data = json.load(datafile)
+
 def is_integer(str):
     try:
         int(str)
@@ -29,11 +32,9 @@ def is_show(name):
                 return True
     return False
 
-
-directory = "D:\Torrents"
-extensions = [".mp4", ".mkv"]
-
-movies = []
+def save_data():
+    with open(DATA_FILENAME, 'w') as json_file:
+        json.dump(data, json_file, indent=4)
 
 for dirpath, dirnames, filenames in os.walk(directory):
     for filename in [f for f in filenames]:
@@ -72,7 +73,6 @@ def get_imdb_data(id, name):
 
         return simplified
 
-data = json.load(datafile)
 
 def get_imdb_id(name):
     try:
@@ -94,9 +94,11 @@ def get_imdb_id(name):
         return id
 
 for idx, movie in enumerate(movies):
-    imdb = get_imdb_id(movie) 
-    movie_data = get_imdb_data(imdb, movie)
-    print(f"{idx}. {movie}: {', '.join(movie_data['genres'])}. ")
+    try:
+        imdb = get_imdb_id(movie) 
+        movie_data = get_imdb_data(imdb, movie)
+        print(f"{idx}. {movie}: {', '.join(movie_data['genres'])}. ")
+    except:
+        save_data()
 
-with open(DATA_FILENAME, 'w') as json_file:
-    json.dump(data, json_file, indent=4)
+save_data()

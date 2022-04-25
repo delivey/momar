@@ -11,5 +11,758 @@
                 "Thriller"
             ]
         }
+    },
+    "Airplane 1980": {
+        "id": "tt0080339",
+        "data": {
+            "length": 5280,
+            "rating": 7.7,
+            "genres": [
+                "Comedy"
+            ]
+        }
+    },
+    "Almost Famous 2000": {
+        "id": "tt0181875",
+        "data": {
+            "length": 7320,
+            "rating": 7.9,
+            "genres": [
+                "Adventure",
+                "Comedy",
+                "Drama",
+                "Music"
+            ]
+        }
+    },
+    "Beats 2019": {
+        "id": "tt8530978",
+        "data": {
+            "length": 6540,
+            "rating": 6.4,
+            "genres": [
+                "Drama"
+            ]
+        }
+    },
+    "Da 5 Bloods 2020": {
+        "id": "tt9777644",
+        "data": {
+            "length": 9240,
+            "rating": 6.5,
+            "genres": [
+                "Adventure",
+                "Drama",
+                "War"
+            ]
+        }
+    },
+    "Spider-Man Into The Spider-Verse 2019": {
+        "id": "tt4633694",
+        "data": {
+            "length": 7020,
+            "rating": 8.4,
+            "genres": [
+                "Animation",
+                "Action",
+                "Adventure",
+                "Comedy",
+                "Family",
+                "Fantasy",
+                "Sci-Fi"
+            ]
+        }
+    },
+    "The Rental 2020": {
+        "id": "tt10003008",
+        "data": {
+            "length": 5280,
+            "rating": 5.7,
+            "genres": [
+                "Drama",
+                "Horror",
+                "Mystery",
+                "Thriller"
+            ]
+        }
+    },
+    "Us 2019": {
+        "id": "tt6857112",
+        "data": {
+            "length": 6960,
+            "rating": 6.8,
+            "genres": [
+                "Horror",
+                "Mystery",
+                "Thriller"
+            ]
+        }
+    },
+    "American Psycho 2000": {
+        "id": "tt0144084",
+        "data": {
+            "length": 6120,
+            "rating": 7.6,
+            "genres": [
+                "Crime",
+                "Drama",
+                "Horror"
+            ]
+        }
+    },
+    "Austin Powers The Spy Who Shagged Me 1999": {
+        "id": "tt0145660",
+        "data": {
+            "length": 5700,
+            "rating": 6.6,
+            "genres": [
+                "Action",
+                "Adventure",
+                "Comedy",
+                "Crime"
+            ]
+        }
+    },
+    "Black Friday 2021": {
+        "id": "tt11649338",
+        "data": {
+            "length": 5040,
+            "rating": 4.6,
+            "genres": [
+                "Comedy",
+                "Horror"
+            ]
+        }
+    },
+    "Dead Poets Society 1989": {
+        "id": "tt0097165",
+        "data": {
+            "length": 7680,
+            "rating": 8.1,
+            "genres": [
+                "Comedy",
+                "Drama"
+            ]
+        }
+    },
+    "Death On The Nile 2022": {
+        "id": "tt7657566",
+        "data": {
+            "length": 7620,
+            "rating": 6.3,
+            "genres": [
+                "Crime",
+                "Drama",
+                "Mystery"
+            ]
+        }
+    },
+    "Dil Bechara 2020": {
+        "id": "tt8110330",
+        "data": {
+            "length": 6060,
+            "rating": 8.1,
+            "genres": [
+                "Comedy",
+                "Drama",
+                "Romance"
+            ]
+        }
+    },
+    "Fear Street Part 1 1994": {
+        "id": "tt6566576",
+        "data": {
+            "length": 6420,
+            "rating": 6.2,
+            "genres": [
+                "Drama",
+                "Horror",
+                "Mystery"
+            ]
+        }
+    },
+    "Fear Street Part 2 1978": {
+        "id": "tt9701940",
+        "data": {
+            "length": 6540,
+            "rating": 6.7,
+            "genres": [
+                "Drama",
+                "Horror",
+                "Mystery"
+            ]
+        }
+    },
+    "Free Guy 2021": {
+        "id": "tt6264654",
+        "data": {
+            "length": 6900,
+            "rating": 7.2,
+            "genres": [
+                "Action",
+                "Adventure",
+                "Comedy",
+                "Fantasy",
+                "Sci-Fi"
+            ]
+        }
+    },
+    "Gemini Man 2019": {
+        "id": "tt1025100",
+        "data": {
+            "length": 7020,
+            "rating": 5.7,
+            "genres": [
+                "Action",
+                "Adventure",
+                "Sci-Fi",
+                "Thriller"
+            ]
+        }
+    },
+    "Halloween 1978": {
+        "id": "tt4721176"
+    },
+    "Halloween Kills 2021": {
+        "id": "tt10665338",
+        "data": {
+            "length": 6300,
+            "rating": 5.6,
+            "genres": [
+                "Horror",
+                "Thriller"
+            ]
+        }
+    },
+    "Happy Death Day 2017": {
+        "id": "tt8155288",
+        "data": {
+            "length": 6000,
+            "rating": 6.2,
+            "genres": [
+                "Comedy",
+                "Horror",
+                "Mystery",
+                "Sci-Fi",
+                "Thriller"
+            ]
+        }
+    },
+    "HHhH 2017": {
+        "id": "tt3296908",
+        "data": {
+            "length": 7200,
+            "rating": 6.4,
+            "genres": [
+                "Action",
+                "Biography",
+                "Thriller",
+                "War"
+            ]
+        }
+    },
+    "Inception 2010": {
+        "id": "tt1375666",
+        "data": {
+            "length": 8880,
+            "rating": 8.8,
+            "genres": [
+                "Action",
+                "Adventure",
+                "Sci-Fi",
+                "Thriller"
+            ]
+        }
+    },
+    "Jungle Cruise 2021": {
+        "id": "tt0870154",
+        "data": {
+            "length": 7620,
+            "rating": 6.6,
+            "genres": [
+                "Action",
+                "Adventure",
+                "Comedy",
+                "Fantasy"
+            ]
+        }
+    },
+    "Kingsman The Golden Circle 2017": {
+        "id": "tt4649466",
+        "data": {
+            "length": 8460,
+            "rating": 6.7,
+            "genres": [
+                "Action",
+                "Adventure",
+                "Comedy",
+                "Crime",
+                "Thriller"
+            ]
+        }
+    },
+    "Kingsman The Secret Service 2014": {
+        "id": "tt2802144",
+        "data": {
+            "length": 7740,
+            "rating": 7.7,
+            "genres": [
+                "Action",
+                "Adventure",
+                "Comedy",
+                "Thriller"
+            ]
+        }
+    },
+    "Midsommar 2019": {
+        "id": "tt8772262",
+        "data": {
+            "length": 8880,
+            "rating": 7.1,
+            "genres": [
+                "Drama",
+                "Horror",
+                "Mystery",
+                "Thriller"
+            ]
+        }
+    },
+    "No Time To Die 2021": {
+        "id": "tt2382320",
+        "data": {
+            "length": 9780,
+            "rating": 7.3,
+            "genres": [
+                "Action",
+                "Adventure",
+                "Thriller"
+            ]
+        }
+    },
+    "Office Uprising 2018": {
+        "id": "tt6251024",
+        "data": {
+            "length": 5520,
+            "rating": 5.8,
+            "genres": [
+                "Action",
+                "Comedy",
+                "Horror"
+            ]
+        }
+    },
+    "One Night In Bangkok 2020": {
+        "id": "tt12192190",
+        "data": {
+            "length": 6300,
+            "rating": 5.1,
+            "genres": [
+                "Action",
+                "Crime",
+                "Drama",
+                "Thriller"
+            ]
+        }
+    },
+    "Project X 2012": {
+        "id": "tt2778418",
+        "data": {
+            "length": 4800,
+            "rating": null,
+            "genres": [
+                "Documentary",
+                "Adventure",
+                "Drama"
+            ]
+        }
+    },
+    "Rambo 2008": {
+        "id": "tt0462499",
+        "data": {
+            "length": 5520,
+            "rating": 7,
+            "genres": [
+                "Action",
+                "Adventure",
+                "Thriller"
+            ]
+        }
+    },
+    "Rambo First Blood 1982": {
+        "id": "tt0089880",
+        "data": {
+            "length": 5760,
+            "rating": 6.5,
+            "genres": [
+                "Action",
+                "Adventure",
+                "Thriller"
+            ]
+        }
+    },
+    "Rambo First Blood Part II 1985": {
+        "id": "tt0089880",
+        "data": {
+            "length": 5760,
+            "rating": 6.5,
+            "genres": [
+                "Action",
+                "Adventure",
+                "Thriller"
+            ]
+        }
+    },
+    "Rambo III 1988": {
+        "id": "tt0095956",
+        "data": {
+            "length": 6120,
+            "rating": 5.8,
+            "genres": [
+                "Action",
+                "Adventure",
+                "Thriller"
+            ]
+        }
+    },
+    "Rambo Last Blood 2019": {
+        "id": "tt1206885",
+        "data": {
+            "length": 5340,
+            "rating": 6.1,
+            "genres": [
+                "Action",
+                "Thriller"
+            ]
+        }
+    },
+    "Relatos Salvajes 2014": {
+        "id": "tt3011894",
+        "data": {
+            "length": 7320,
+            "rating": 8.1,
+            "genres": [
+                "Comedy",
+                "Drama",
+                "Thriller"
+            ]
+        }
+    },
+    "Revolver 2005": {
+        "id": "tt0365686",
+        "data": {
+            "length": 6660,
+            "rating": 6.3,
+            "genres": [
+                "Action",
+                "Crime",
+                "Drama",
+                "Mystery",
+                "Thriller"
+            ]
+        }
+    },
+    "Run Hide Fight 2020": {
+        "id": "tt11456054",
+        "data": {
+            "length": 6540,
+            "rating": 6.4,
+            "genres": [
+                "Crime",
+                "Drama",
+                "Thriller"
+            ]
+        }
+    },
+    "Rush Hour 1998": {
+        "id": "tt0120812",
+        "data": {
+            "length": 5880,
+            "rating": 7,
+            "genres": [
+                "Action",
+                "Comedy",
+                "Crime",
+                "Thriller"
+            ]
+        }
+    },
+    "Schindlers List 1993": {
+        "id": "tt0108052",
+        "data": {
+            "length": 11700,
+            "rating": 9,
+            "genres": [
+                "Biography",
+                "Drama",
+                "History"
+            ]
+        }
+    },
+    "Silent Night 2021": {
+        "id": "tt11628854",
+        "data": {
+            "length": 5520,
+            "rating": 5.7,
+            "genres": [
+                "Comedy",
+                "Drama",
+                "Horror"
+            ]
+        }
+    },
+    "Spider-Man No Way Home 2021": {
+        "id": "tt10872600",
+        "data": {
+            "length": 8880,
+            "rating": 8.4,
+            "genres": [
+                "Action",
+                "Adventure",
+                "Fantasy",
+                "Sci-Fi"
+            ]
+        }
+    },
+    "Taxi Driver 1976": {
+        "id": "tt0075314",
+        "data": {
+            "length": 6840,
+            "rating": 8.3,
+            "genres": [
+                "Crime",
+                "Drama"
+            ]
+        }
+    },
+    "Tenet 2020": {
+        "id": "tt6723592",
+        "data": {
+            "length": 9000,
+            "rating": 7.3,
+            "genres": [
+                "Action",
+                "Sci-Fi",
+                "Thriller"
+            ]
+        }
+    },
+    "The Boys Girls Guide To Getting Down 2006": {
+        "id": "tt0464907",
+        "data": {
+            "length": 5520,
+            "rating": 6.5,
+            "genres": [
+                "Comedy"
+            ]
+        }
+    },
+    "The Batman 2022": {
+        "id": "tt1877830",
+        "data": {
+            "length": 10560,
+            "rating": 8.1,
+            "genres": [
+                "Action",
+                "Crime",
+                "Drama",
+                "Mystery"
+            ]
+        }
+    },
+    "The Forever Purge 2021": {
+        "id": "tt10327252",
+        "data": {
+            "length": 6180,
+            "rating": 5.4,
+            "genres": [
+                "Action",
+                "Horror",
+                "Thriller"
+            ]
+        }
+    },
+    "The French Dispatch 2021": {
+        "id": "tt8847712",
+        "data": {
+            "length": 6420,
+            "rating": 7.2,
+            "genres": [
+                "Comedy",
+                "Drama",
+                "Romance"
+            ]
+        }
+    },
+    "The Good The Bad And The Ugly 1966": {
+        "id": "tt0060196",
+        "data": {
+            "length": 9660,
+            "rating": 8.8,
+            "genres": [
+                "Adventure",
+                "Western"
+            ]
+        }
+    },
+    "The Hitchhikers Guide To The Galaxy 2005": {
+        "id": "tt0371724",
+        "data": {
+            "length": 6540,
+            "rating": 6.7,
+            "genres": [
+                "Adventure",
+                "Comedy",
+                "Sci-Fi"
+            ]
+        }
+    },
+    "The Kings Man 2021": {
+        "id": "tt6856242",
+        "data": {
+            "length": 7860,
+            "rating": 6.3,
+            "genres": [
+                "Action",
+                "Adventure",
+                "Thriller"
+            ]
+        }
+    },
+    "The Man With The Answers 2021": {
+        "id": "tt9320140",
+        "data": {
+            "length": 4800,
+            "rating": 6.8,
+            "genres": [
+                "Drama",
+                "Romance"
+            ]
+        }
+    },
+    "The Martian 2015": {
+        "id": "tt3659388",
+        "data": {
+            "length": 8640,
+            "rating": 8,
+            "genres": [
+                "Adventure",
+                "Drama",
+                "Sci-Fi"
+            ]
+        }
+    },
+    "The Matrix 1999": {
+        "id": "tt0133093",
+        "data": {
+            "length": 8160,
+            "rating": 8.7,
+            "genres": [
+                "Action",
+                "Sci-Fi"
+            ]
+        }
+    },
+    "The Platform 2019": {
+        "id": "tt8228288",
+        "data": {
+            "length": 5640,
+            "rating": 7,
+            "genres": [
+                "Horror",
+                "Sci-Fi",
+                "Thriller"
+            ]
+        }
+    },
+    "The Silence Of The Lambs 1991": {
+        "id": "tt0102926",
+        "data": {
+            "length": 7080,
+            "rating": 8.6,
+            "genres": [
+                "Crime",
+                "Drama",
+                "Thriller"
+            ]
+        }
+    },
+    "The Truman Show 1998": {
+        "id": "tt0120382",
+        "data": {
+            "length": 6180,
+            "rating": 8.2,
+            "genres": [
+                "Comedy",
+                "Drama"
+            ]
+        }
+    },
+    "The Worlds End 2013": {
+        "id": "tt1213663",
+        "data": {
+            "length": 6540,
+            "rating": 6.9,
+            "genres": [
+                "Action",
+                "Comedy",
+                "Sci-Fi"
+            ]
+        }
+    },
+    "Uncharted 2022": {
+        "id": "tt1464335",
+        "data": {
+            "length": 6960,
+            "rating": 6.5,
+            "genres": [
+                "Action",
+                "Adventure"
+            ]
+        }
+    },
+    "Wrath Of Man 2021": {
+        "id": "tt11083552",
+        "data": {
+            "length": 7140,
+            "rating": 7.1,
+            "genres": [
+                "Action",
+                "Crime",
+                "Thriller"
+            ]
+        }
+    },
+    "X 2022": {
+        "id": "tt13560574",
+        "data": {
+            "length": 6300,
+            "rating": 6.8,
+            "genres": [
+                "Horror",
+                "Thriller"
+            ]
+        }
+    },
+    "You Wont Be Alone 2022": {
+        "id": "tt8296030",
+        "data": {
+            "length": 6480,
+            "rating": 6.6,
+            "genres": [
+                "Drama",
+                "Horror"
+            ]
+        }
+    },
+    "Zeros And Ones 2021": {
+        "id": "tt13432484",
+        "data": {
+            "length": 5220,
+            "rating": 3.4,
+            "genres": [
+                "Thriller",
+                "War"
+            ]
+        }
     }
 }
