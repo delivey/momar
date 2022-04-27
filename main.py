@@ -22,6 +22,7 @@ class MovieManager:
         self.movies = []
         self.discarded = []
         self.first_time = True
+        self.genre = "all"
 
         datafile = open(data_filename)
         self.data = json.load(datafile)
@@ -77,7 +78,7 @@ class MovieManager:
         self.get_movie_data()
         self.save_data()
         if self.first_time: self.first_time = False
-        return self.data, self.discarded
+        return self.data
 
     def get_imdb_data(self, id, name):
         try:
@@ -136,9 +137,9 @@ class MovieManager:
 
     def show_movies(self):
         if self.first_time:
-            movies, discarded = self.get_movies()
+            movies = self.get_movies()
         else:
-            movies, discarded = self.data, self.discarded
+            movies = self.data
         sorted_movies = dict(sorted(movies.items(), key=lambda item: item[1]['data']["rating"], reverse=True))
 
         idx = 0
@@ -170,6 +171,7 @@ class CommandManager:
 
     def showGenre(self, command):
         genre = command.split(" ")[1]
+        manager.genre = genre
 
     def doCommand(self, com):
         comdict = {
