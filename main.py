@@ -170,19 +170,18 @@ class CommandManager:
 
     def showGenre(self, command):
         genre = command.split(" ")[1]
-        print(genre)
 
     def doCommand(self, com):
         comdict = {
-            "discarded": self.showDiscarded(),
-            "movies": manager.show_movies(),
-            "genre": self.showGenre(com)
+            "discarded": self.showDiscarded,
+            "movies": manager.show_movies,
+            "genre": self.showGenre
         }
-        if not com in self.parameterCommands:
-            comdict[com]
+        first = com.split(" ")[0]
+        if not first in self.parameterCommands:
+            comdict[com]()
         else:
-            first = com.split(" ")[0]
-            comdict[first]
+            comdict[first](com)
         return True
 
     def askCommand(self):
