@@ -21,6 +21,7 @@ class MovieManager:
         self.extensions = [".mp4", ".mkv"]
         self.movies = []
         self.discarded = []
+        self.first_time = True
 
         datafile = open(data_filename)
         self.data = json.load(datafile)
@@ -75,6 +76,7 @@ class MovieManager:
         self.get_movie_names()
         self.get_movie_data()
         self.save_data()
+        if self.first_time: self.first_time = False
         return self.data, self.discarded
 
     def get_imdb_data(self, id, name):
@@ -133,7 +135,10 @@ class MovieManager:
             return id
 
     def show_movies(self):
-        movies, discarded = manager.get_movies()
+        if self.first_time:
+            movies, discarded = self.get_movies()
+        else:
+            movies, discarded = self.data, self.discarded
         sorted_movies = dict(sorted(movies.items(), key=lambda item: item[1]['data']["rating"], reverse=True))
 
         idx = 0
@@ -151,7 +156,7 @@ class MovieManager:
 
 class CommandManager:
     def __init__(self, manager):
-        self.validCommands = ["discarded"]
+        self.validCommands = ["discarded", "movies"]
 
     def validCommand(self, command):
         return command in self.validCommands
@@ -161,7 +166,8 @@ class CommandManager:
 
     def doCommand(self, com):
         comdict = {
-            "discarded": self.showDiscarded()
+            "discarded": self.showDiscarded(),
+            "movies": manager.show_movies()
         }
         comdict[com]
         return True
