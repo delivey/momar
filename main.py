@@ -22,7 +22,7 @@ class MovieManager:
         self.movies = []
         self.discarded = []
         self.first_time = True
-        self.genre = "all"
+        self.genre = "All"
 
         datafile = open(data_filename)
         self.data = json.load(datafile)
@@ -147,11 +147,18 @@ class MovieManager:
             mdata = mdata["data"]
             idx+=1
 
-            if mdata["rating"] >= GREEN_RATING_THRESHOLD: color = Fore.GREEN
-            elif mdata["rating"] >= YELLOW_RATING_THRESHOLD: color = Fore.YELLOW
-            else: color = Fore.RED
+            correct_genre = (self.genre == "All")
+            if not correct_genre and 'genres' in mdata:
+                for genre in mdata["genres"]:
+                    if genre == self.genre: correct_genre = True
 
-            print(color + f"{idx}. ({mdata['rating']}) {name}: {', '.join(mdata['genres'])}. ")
+            if correct_genre:
+                if mdata["rating"] >= GREEN_RATING_THRESHOLD: color = Fore.GREEN
+                elif mdata["rating"] >= YELLOW_RATING_THRESHOLD: color = Fore.YELLOW
+                else: color = Fore.RED
+
+                print(color + f"{idx}. ({mdata['rating']}) {name}: {', '.join(mdata['genres'])}. ")
+        print(self.genre)
 
 
 
@@ -170,8 +177,9 @@ class CommandManager:
         print(Fore.GREEN + ", ".join(manager.discarded))
 
     def showGenre(self, command):
-        genre = command.split(" ")[1]
+        genre = command.split(" ")[1].capitalize()
         manager.genre = genre
+        print(manager.genre)
 
     def doCommand(self, com):
         comdict = {
