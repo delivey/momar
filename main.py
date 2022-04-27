@@ -90,6 +90,7 @@ class MovieManager:
                 length = djson["props"]["pageProps"]["aboveTheFoldData"]["runtime"]["seconds"]
             except TypeError:
                 if DISCARD_PARTIAL_DATA:
+                    del self.data[name]
                     self.discarded.append(name)
                     return False
                 length = 0
@@ -100,6 +101,7 @@ class MovieManager:
 
             if rating == None:
                 self.discarded.append(name)
+                del self.data[name]
                 return False
 
             simplified = {
@@ -133,9 +135,10 @@ class MovieManager:
 
 manager = MovieManager(DIRECTORY, DATA_FILENAME)
 movies, discarded = manager.get_movies()
+sorted_movies = dict(sorted(movies.items(), key=lambda item: item[1]['data']["rating"], reverse=True))
 
 idx = 0
-for name, mdata in movies.items():
+for name, mdata in sorted_movies.items():
     try:
         mdata = mdata["data"]
         idx+=1
@@ -149,21 +152,3 @@ for name, mdata in movies.items():
         print(color + f"{idx}. ({mdata['rating']}) {name}: {', '.join(mdata['genres'])}. ")
     except KeyError: # Discarded movies
         ...
-"""
-for idx, movie in enumerate(movies):
-    try:
-        imdb = manager.get_imdb_id(movie)
-        movie_data = manager.get_imdb_data(imdb, movie)
-        if movie_data["rating"] >= GREEN_RATING_THRESHOLD:
-            color = Fore.GREEN
-        elif movie_data["rating"] >= YELLOW_RATING_THRESHOLD:
-            color = Fore.YELLOW
-        else:
-            color = Fore.RED
-
-        print(color + f"{idx}. ({movie_data['rating']}) {movie}: {', '.join(movie_data['genres'])}. ")
-    except:
-        manager.save_data()
-
-manager.save_data()
-"""
