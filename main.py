@@ -1,6 +1,7 @@
 import os
 import os.path
 from re import M
+from typing import Type
 import requests
 from bs4 import BeautifulSoup
 import json
@@ -80,10 +81,12 @@ class MovieManager:
             url = f"https://www.imdb.com/title/{id}/"
             r = requests.get(url)
             soup = BeautifulSoup(r.text, "html.parser")
-            djson = json.loads(
-                soup.find('script', type='application/json', id='__NEXT_DATA__').string)
+            djson = json.loads(soup.find('script', type='application/json', id='__NEXT_DATA__').string)
 
-            length = djson["props"]["pageProps"]["aboveTheFoldData"]["runtime"]["seconds"]
+            try:
+                length = djson["props"]["pageProps"]["aboveTheFoldData"]["runtime"]["seconds"]
+            except TypeError:
+                length = 0
             rating = djson["props"]["pageProps"]["aboveTheFoldData"]["ratingsSummary"]["aggregateRating"]
             genres = djson["props"]["pageProps"]["aboveTheFoldData"]["genres"]["genres"]
             genres = [genre["text"] for genre in genres]
