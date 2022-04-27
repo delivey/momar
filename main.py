@@ -67,8 +67,8 @@ class MovieManager:
 
     def get_movie_data(self):
         for movie in self.movies:
-            imdb = manager.get_imdb_id(movie)
-            manager.get_imdb_data(imdb, movie)
+            imdb = self.get_imdb_id(movie)
+            self.get_imdb_data(imdb, movie)
         return self.data
 
     def get_movies(self):
@@ -132,23 +132,30 @@ class MovieManager:
 
             return id
 
+    def show_movies(self):
+        movies, discarded = manager.get_movies()
+        sorted_movies = dict(sorted(movies.items(), key=lambda item: item[1]['data']["rating"], reverse=True))
+
+        idx = 0
+        for name, mdata in sorted_movies.items():
+            mdata = mdata["data"]
+            idx+=1
+
+            if mdata["rating"] >= GREEN_RATING_THRESHOLD: color = Fore.GREEN
+            elif mdata["rating"] >= YELLOW_RATING_THRESHOLD: color = Fore.YELLOW
+            else: color = Fore.RED
+
+            print(color + f"{idx}. ({mdata['rating']}) {name}: {', '.join(mdata['genres'])}. ")
+
+
+
+class CommandManager:
+    def __init__(self, manager):
+        self.validCommands = ["discarded"]
+
+    def validCommand(self, command):
+        return command in self.validCommands
+
 
 manager = MovieManager(DIRECTORY, DATA_FILENAME)
-movies, discarded = manager.get_movies()
-sorted_movies = dict(sorted(movies.items(), key=lambda item: item[1]['data']["rating"], reverse=True))
-
-idx = 0
-for name, mdata in sorted_movies.items():
-    try:
-        mdata = mdata["data"]
-        idx+=1
-        if mdata["rating"] >= GREEN_RATING_THRESHOLD:
-            color = Fore.GREEN
-        elif mdata["rating"] >= YELLOW_RATING_THRESHOLD:
-            color = Fore.YELLOW
-        else:
-            color = Fore.RED
-
-        print(color + f"{idx}. ({mdata['rating']}) {name}: {', '.join(mdata['genres'])}. ")
-    except KeyError: # Discarded movies
-        ...
+manager.show_movies()
