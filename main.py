@@ -156,6 +156,32 @@ class CommandManager:
     def validCommand(self, command):
         return command in self.validCommands
 
+    def showDiscarded(self):
+        print(Fore.GREEN + ", ".join(manager.discarded))
+
+    def doCommand(self, com):
+        comdict = {
+            "discarded": self.showDiscarded()
+        }
+        comdict[com]
+        return True
+
+    def askCommand(self):
+        com = input()
+        valid = self.validCommand(com)
+        if valid:
+            self.doCommand(com)
+            return True
+        else:
+            return False
+
 
 manager = MovieManager(DIRECTORY, DATA_FILENAME)
 manager.show_movies()
+
+command = CommandManager(manager)
+while True:
+    try:
+        command.askCommand()
+    except KeyboardInterrupt:
+        break
