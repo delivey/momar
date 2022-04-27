@@ -156,20 +156,33 @@ class MovieManager:
 
 class CommandManager:
     def __init__(self, manager):
-        self.validCommands = ["discarded", "movies"]
+        self.validCommands = ["discarded", "movies", "genre"]
+        self.parameterCommands = ["genre"]
 
     def validCommand(self, command):
-        return command in self.validCommands
+        valid = False
+        if command in self.validCommands: valid = True
+        if any(map(command.startswith, self.parameterCommands)): valid = True
+        return valid
 
     def showDiscarded(self):
         print(Fore.GREEN + ", ".join(manager.discarded))
 
+    def showGenre(self, command):
+        genre = command.split(" ")[1]
+        print(genre)
+
     def doCommand(self, com):
         comdict = {
             "discarded": self.showDiscarded(),
-            "movies": manager.show_movies()
+            "movies": manager.show_movies(),
+            "genre": self.showGenre(com)
         }
-        comdict[com]
+        if not com in self.parameterCommands:
+            comdict[com]
+        else:
+            first = com.split(" ")[0]
+            comdict[first]
         return True
 
     def askCommand(self):
@@ -179,6 +192,7 @@ class CommandManager:
             self.doCommand(com)
             return True
         else:
+            print(Fore.RED + "X")
             return False
 
 
