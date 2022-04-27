@@ -8,6 +8,7 @@ import json
 from colorama import init, Fore, Back, Style
 init(autoreset=True)
 
+DISCARD_PARTIAL_DATA = True
 YELLOW_RATING_THRESHOLD = 6
 GREEN_RATING_THRESHOLD = 8
 
@@ -19,6 +20,7 @@ class MovieManager:
         self.directory = directory
         self.extensions = [".mp4", ".mkv"]
         self.movies = []
+        self.discarded = []
 
         datafile = open(data_filename)
         self.data = json.load(datafile)
@@ -72,7 +74,8 @@ class MovieManager:
     def get_movies(self):
         self.get_movie_names()
         self.get_movie_data()
-        return self.data
+        self.save_data()
+        return self.data, self.discarded
 
     def get_imdb_data(self, id, name):
         try:
@@ -86,10 +89,18 @@ class MovieManager:
             try:
                 length = djson["props"]["pageProps"]["aboveTheFoldData"]["runtime"]["seconds"]
             except TypeError:
+                if DISCARD_PARTIAL_DATA:
+                    self.discarded.append(name)
+                    return False
                 length = 0
+
             rating = djson["props"]["pageProps"]["aboveTheFoldData"]["ratingsSummary"]["aggregateRating"]
             genres = djson["props"]["pageProps"]["aboveTheFoldData"]["genres"]["genres"]
             genres = [genre["text"] for genre in genres]
+
+            if rating == None:
+                self.discarded.append(name)
+                return False
 
             simplified = {
                 "length": length,
@@ -121,9 +132,23 @@ class MovieManager:
 
 
 manager = MovieManager(DIRECTORY, DATA_FILENAME)
-movies = manager.get_movies()
-print(movies)
+movies, discarded = manager.get_movies()
 
+idx = 0
+for name, mdata in movies.items():
+    try:
+        mdata = mdata["data"]
+        idx+=1
+        if mdata["rating"] >= GREEN_RATING_THRESHOLD:
+            color = Fore.GREEN
+        elif mdata["rating"] >= YELLOW_RATING_THRESHOLD:
+            color = Fore.YELLOW
+        else:
+            color = Fore.RED
+
+        print(color + f"{idx}. ({mdata['rating']}) {name}: {', '.join(mdata['genres'])}. ")
+    except KeyError: # Discarded movies
+        ...
 """
 for idx, movie in enumerate(movies):
     try:
