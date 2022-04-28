@@ -1,11 +1,10 @@
 import os
 import os.path
-from re import M
-from typing import Type
 import requests
 from bs4 import BeautifulSoup
 import json
 from colorama import init, Fore, Back, Style
+from os import system, name
 init(autoreset=True)
 
 DISCARD_PARTIAL_DATA = True
@@ -158,13 +157,11 @@ class MovieManager:
                 else: color = Fore.RED
 
                 print(color + f"{idx}. ({mdata['rating']}) {name}: {', '.join(mdata['genres'])}. ")
-        print(self.genre)
-
 
 
 class CommandManager:
     def __init__(self, manager):
-        self.validCommands = ["discarded", "movies", "genre"]
+        self.validCommands = ["discarded", "movies", "genre", "clear"]
         self.parameterCommands = ["genre"]
 
     def validCommand(self, command):
@@ -179,13 +176,18 @@ class CommandManager:
     def showGenre(self, command):
         genre = command.split(" ")[1].capitalize()
         manager.genre = genre
-        print(manager.genre)
+
+    def clearScreen(self):
+        if name == 'nt': system('cls')
+        else: system('clear')
+    
 
     def doCommand(self, com):
         comdict = {
             "discarded": self.showDiscarded,
             "movies": manager.show_movies,
-            "genre": self.showGenre
+            "genre": self.showGenre,
+            "clear": self.clearScreen
         }
         first = com.split(" ")[0]
         if not first in self.parameterCommands:
