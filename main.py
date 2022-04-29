@@ -185,13 +185,23 @@ class CommandManager:
         print(Fore.GREEN + ", ".join(manager.discarded))
 
     def sortMovies(self, command):
-        sorting_ways = ["rating", "year"]
+        sort_ways = ["rating", "year"]
+        sortway_ways = ["desc", "asc"]
         command_length = len(command.split(" "))
-        if command_length == 2:
+
+        if command_length >= 2:
             sort = command.split(" ")[1].lower()
-            if not sort in sorting_ways:
+            if not sort in sort_ways:
                 print(Fore.RED + "No such sorting method.")
             manager.sort = sort
+            if command_length == 3:
+                sortway = command.split(" ")[2].lower()
+                if not sortway in sortway_ways:
+                    print(Fore.RED + "No such sorting way.")
+                manager.sortway = sortway
+            else:
+                print(Fore.RED + "Too many arguments supplied.")
+
         elif command_length == 1:
             print(Fore.GREEN + manager.sort)
 
