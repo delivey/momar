@@ -3,14 +3,17 @@ import os.path
 import requests
 from bs4 import BeautifulSoup
 import json
-from colorama import init, Fore, Back, Style
+from colorama import init, Fore
 from os import system, name
 init(autoreset=True)
 
+# Developer
+LOAD_CACHED_ON_STARTUP = True
+
+# User
 DISCARD_PARTIAL_DATA = True
 YELLOW_RATING_THRESHOLD = 6
 GREEN_RATING_THRESHOLD = 8
-
 DATA_FILENAME = "data.json"
 DIRECTORY = "D:\Torrents"
 
@@ -135,7 +138,7 @@ class MovieManager:
             return id
 
     def show_movies(self):
-        if self.first_time:
+        if self.first_time and not LOAD_CACHED_ON_STARTUP:
             movies = self.get_movies()
         else:
             movies = self.data
