@@ -161,8 +161,8 @@ class MovieManager:
 
 class CommandManager:
     def __init__(self, manager):
-        self.validCommands = ["discarded", "movies", "genre", "clear"]
-        self.parameterCommands = ["genre"]
+        self.validCommands = ["discarded", "movies", "genre", "clear", "sort"]
+        self.parameterCommands = ["genre", "sort"]
 
     def validCommand(self, command):
         valid = False
@@ -174,14 +174,17 @@ class CommandManager:
         print(Fore.GREEN + ", ".join(manager.discarded))
 
     def showGenre(self, command):
-        genre = command.split(" ")[1].capitalize()
-        manager.genre = genre
+        command_length = len(command.split(" "))
+        if command_length == 2:
+            genre = command.split(" ")[1].capitalize()
+            manager.genre = genre
+        elif command_length == 1:
+            print(Fore.GREEN + manager.genre)
 
     def clearScreen(self):
         if name == 'nt': system('cls')
         else: system('clear')
     
-
     def doCommand(self, com):
         comdict = {
             "discarded": self.showDiscarded,
