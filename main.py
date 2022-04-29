@@ -233,6 +233,7 @@ class CommandManager:
         return True
 
     def askCommand(self):
+        print(Fore.CYAN + ": ", end="")
         com = input()
         valid = self.validCommand(com)
         if valid:
