@@ -24,8 +24,10 @@ class MovieManager:
         self.movies = []
         self.discarded = []
         self.first_time = True
+
         self.genre = "All"
         self.sort = "rating"
+        self.sortway = "desc"
 
         datafile = open(data_filename)
         self.data = json.load(datafile)
@@ -144,10 +146,11 @@ class MovieManager:
         else:
             movies = self.data
 
+        reverse = self.sortway == "desc"
         if self.sort == "rating":
-            sorted_movies = dict(sorted(movies.items(), key=lambda item: item[1]['data']["rating"], reverse=True))
+            sorted_movies = dict(sorted(movies.items(), key=lambda item: item[1]['data']["rating"], reverse=reverse))
         elif self.sort == "year":
-            sorted_movies = dict(sorted(movies.items(), key=lambda item: int(item[0].split(" ")[-1]), reverse=True))
+            sorted_movies = dict(sorted(movies.items(), key=lambda item: int(item[0].split(" ")[-1]), reverse=reverse))
 
         idx = 0
         for name, mdata in sorted_movies.items():
@@ -182,9 +185,12 @@ class CommandManager:
         print(Fore.GREEN + ", ".join(manager.discarded))
 
     def sortMovies(self, command):
+        sorting_ways = ["rating", "year"]
         command_length = len(command.split(" "))
         if command_length == 2:
             sort = command.split(" ")[1].lower()
+            if not sort in sorting_ways:
+                print(Fore.RED + "No such sorting method.")
             manager.sort = sort
         elif command_length == 1:
             print(Fore.GREEN + manager.sort)
