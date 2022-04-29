@@ -25,6 +25,7 @@ class MovieManager:
         self.discarded = []
         self.first_time = True
         self.genre = "All"
+        self.sort = "rating"
 
         datafile = open(data_filename)
         self.data = json.load(datafile)
@@ -142,7 +143,11 @@ class MovieManager:
             movies = self.get_movies()
         else:
             movies = self.data
-        sorted_movies = dict(sorted(movies.items(), key=lambda item: item[1]['data']["rating"], reverse=True))
+
+        if self.sort == "rating":
+            sorted_movies = dict(sorted(movies.items(), key=lambda item: item[1]['data']["rating"], reverse=True))
+        elif self.sort == "year":
+            sorted_movies = dict(sorted(movies.items(), key=lambda item: int(item[0].split(" ")[-1]), reverse=True))
 
         idx = 0
         for name, mdata in sorted_movies.items():
@@ -176,6 +181,14 @@ class CommandManager:
     def showDiscarded(self):
         print(Fore.GREEN + ", ".join(manager.discarded))
 
+    def sortMovies(self, command):
+        command_length = len(command.split(" "))
+        if command_length == 2:
+            sort = command.split(" ")[1].lower()
+            manager.sort = sort
+        elif command_length == 1:
+            print(Fore.GREEN + manager.sort)
+
     def showGenre(self, command):
         command_length = len(command.split(" "))
         if command_length == 2:
@@ -193,7 +206,8 @@ class CommandManager:
             "discarded": self.showDiscarded,
             "movies": manager.show_movies,
             "genre": self.showGenre,
-            "clear": self.clearScreen
+            "clear": self.clearScreen,
+            "sort": self.sortMovies
         }
         first = com.split(" ")[0]
         if not first in self.parameterCommands:
