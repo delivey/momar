@@ -5,6 +5,7 @@ from bs4 import BeautifulSoup
 import json
 from colorama import init, Fore
 from os import system, name
+import difflib
 init(autoreset=True)
 
 # Developer
@@ -140,15 +141,16 @@ class MovieManager:
 
             return id
 
-    def show_movies(self):
+    def show_movies(self, predefined_data=False):
         if self.first_time and not LOAD_CACHED_ON_STARTUP:
             movies = self.get_movies()
         else:
             movies = self.data
+        self.movies = movies
 
         reverse = self.sortway == "desc"
         if self.sort == "rating":
-            sorted_movies = dict(sorted(movies.items(), key=lambda item: item[1]['data']["rating"], reverse=reverse))
+            sorted_movies = dict(sorted(movies.items(), key=lambda item: item[1]["data"]["rating"], reverse=reverse))
         elif self.sort == "year":
             sorted_movies = dict(sorted(movies.items(), key=lambda item: int(item[0].split(" ")[-1]), reverse=reverse))
 
@@ -167,13 +169,16 @@ class MovieManager:
                 elif mdata["rating"] >= YELLOW_RATING_THRESHOLD: color = Fore.YELLOW
                 else: color = Fore.RED
 
-                print(color + f"{idx}. ({mdata['rating']}) {name}: {', '.join(mdata['genres'])}. ")
-
+                if predefined_data:
+                    if name in predefined_data:
+                        print(color + f"{idx}. ({mdata['rating']}) {name}: {', '.join(mdata['genres'])}. ")
+                else:
+                    print(color + f"{idx}. ({mdata['rating']}) {name}: {', '.join(mdata['genres'])}. ")
 
 class CommandManager:
     def __init__(self, manager):
-        self.validCommands = ["discarded", "movies", "genre", "clear", "sort"]
-        self.parameterCommands = ["genre", "sort"]
+        self.validCommands = ["discarded", "movies", "genre", "clear", "sort", "search"]
+        self.parameterCommands = ["genre", "sort", "search"]
 
     def validCommand(self, command):
         valid = False
@@ -216,14 +221,24 @@ class CommandManager:
     def clearScreen(self):
         if name == 'nt': system('cls')
         else: system('clear')
-    
+
+    def searchMovies(self, command): # TODO Implement more robust algorithm, make it possible to have more than 1 result
+        splitc = command.split(" ")
+        movie = " ".join(splitc[1:])
+       
+        movies = list(manager.movies)
+        found = difflib.get_close_matches(movie, movies)
+        
+        if found: manager.show_movies(found)
+
     def doCommand(self, com):
         comdict = {
             "discarded": self.showDiscarded,
             "movies": manager.show_movies,
             "genre": self.showGenre,
             "clear": self.clearScreen,
-            "sort": self.sortMovies
+            "sort": self.sortMovies,
+            "search": self.searchMovies
         }
         first = com.split(" ")[0]
         if not first in self.parameterCommands:
