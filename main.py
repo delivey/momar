@@ -6,6 +6,7 @@ import json
 from colorama import init, Fore
 from os import system, name
 import difflib
+import subprocess
 init(autoreset=True)
 
 # Developer
@@ -78,7 +79,7 @@ class MovieManager:
 
     def get_movie_data(self):
         for idx, movie in enumerate(self.movies):
-            imdb = self.get_imdb_id(movie)
+            imdb = self.get_imdb_id(movie, idx)
             self.get_imdb_data(imdb, movie, idx)
         return self.data
 
@@ -126,7 +127,7 @@ class MovieManager:
             self.data[name]["data"] = simplified
             return simplified
 
-    def get_imdb_id(self, name):
+    def get_imdb_id(self, name, idx):
         try:
             return self.data[name]["id"]
         except KeyError:
@@ -141,7 +142,7 @@ class MovieManager:
             result = str(soup.select_one('td.result_text'))
             id = result[result.index('href="/title/') + len('href="/title/'):result.index('/"')]
 
-            self.data[name] = {"id": id}
+            self.data[name] = {"id": id, "idx": idx}
 
             return id
 
@@ -159,6 +160,7 @@ class MovieManager:
 
         idx = 0
         for name, mdata in sorted_movies.items():
+            ddata = mdata
             mdata = mdata["data"]
             idx+=1
 
@@ -174,14 +176,14 @@ class MovieManager:
 
                 if predefined_data:
                     if name in predefined_data:
-                        print(color + f"{idx}. ({mdata['rating']}) {name}: {', '.join(mdata['genres'])}. ")
+                        print(color + f"{ddata['idx']}. ({mdata['rating']}) {name}: {', '.join(mdata['genres'])}. ")
                 else:
-                    print(color + f"{idx}. ({mdata['rating']}) {name}: {', '.join(mdata['genres'])}. ")
+                    print(color + f"{ddata['idx']}. ({mdata['rating']}) {name}: {', '.join(mdata['genres'])}. ")
 
 class CommandManager:
     def __init__(self, manager):
-        self.validCommands = ["discarded", "movies", "genre", "clear", "sort", "search"]
-        self.parameterCommands = ["genre", "sort", "search"]
+        self.validCommands = ["discarded", "movies", "genre", "clear", "sort", "search", "open"]
+        self.parameterCommands = ["genre", "sort", "search", "open"]
 
     def validCommand(self, command):
         valid = False
@@ -237,6 +239,9 @@ class CommandManager:
         
         if found: manager.show_movies(found)
 
+    def openMovie(self): 
+        ...
+
     def doCommand(self, com):
         comdict = {
             "discarded": self.showDiscarded,
@@ -244,7 +249,8 @@ class CommandManager:
             "genre": self.showGenre,
             "clear": self.clearScreen,
             "sort": self.sortMovies,
-            "search": self.searchMovies
+            "search": self.searchMovies,
+            "open": self.openMovie
         }
         first = com.split(" ")[0]
         if not first in self.parameterCommands:
