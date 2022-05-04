@@ -9,7 +9,7 @@ import difflib
 init(autoreset=True)
 
 # Developer
-LOAD_CACHED_ON_STARTUP = True
+LOAD_CACHED_ON_STARTUP = False
 
 # User
 DISCARD_PARTIAL_DATA = True
@@ -23,6 +23,7 @@ class MovieManager:
         self.directory = directory
         self.extensions = [".mp4", ".mkv"]
         self.movies = []
+        self.movies_paths = []
         self.discarded = []
         self.first_time = True
 
@@ -71,12 +72,14 @@ class MovieManager:
                                 " ".join(movie_name_parts[:idx])) + f" {i}"
                             break
                     if movie_name:
+                        full_path = f"{dirpath}\\{filename}"
+                        self.movies_paths.append(full_path)
                         self.movies.append(movie_name)
 
     def get_movie_data(self):
-        for movie in self.movies:
+        for idx, movie in enumerate(self.movies):
             imdb = self.get_imdb_id(movie)
-            self.get_imdb_data(imdb, movie)
+            self.get_imdb_data(imdb, movie, idx)
         return self.data
 
     def get_movies(self):
@@ -86,7 +89,7 @@ class MovieManager:
         if self.first_time: self.first_time = False
         return self.data
 
-    def get_imdb_data(self, id, name):
+    def get_imdb_data(self, id, name, idx):
         try:
             return self.data[name]["data"]
         except KeyError:
@@ -116,7 +119,8 @@ class MovieManager:
             simplified = {
                 "length": length,
                 "rating": rating,
-                "genres": genres
+                "genres": genres,
+                "path": self.movies_paths[idx]
             }
 
             self.data[name]["data"] = simplified
@@ -146,7 +150,6 @@ class MovieManager:
             movies = self.get_movies()
         else:
             movies = self.data
-        self.movies = movies
 
         reverse = self.sortway == "desc"
         if self.sort == "rating":
@@ -218,6 +221,9 @@ class CommandManager:
         elif command_length == 1:
             print(Fore.GREEN + manager.genre)
 
+    def get_movie_path(name):
+        ...
+
     def clearScreen(self):
         if name == 'nt': system('cls')
         else: system('clear')
@@ -226,7 +232,7 @@ class CommandManager:
         splitc = command.split(" ")
         movie = " ".join(splitc[1:])
        
-        movies = list(manager.movies)
+        movies = list(manager.data)
         found = difflib.get_close_matches(movie, movies)
         
         if found: manager.show_movies(found)
