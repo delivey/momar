@@ -10,7 +10,7 @@ import subprocess
 init(autoreset=True)
 
 # Developer
-LOAD_CACHED_ON_STARTUP = False
+LOAD_CACHED_ON_STARTUP = True
 
 # User
 DISCARD_PARTIAL_DATA = True
@@ -223,8 +223,10 @@ class CommandManager:
         elif command_length == 1:
             print(Fore.GREEN + manager.genre)
 
-    def get_movie_path(name):
-        ...
+    def getMoviePath(self, id):
+        for key, value in manager.data.items():
+            if id == value["idx"]:
+                return value["data"]["path"]
 
     def clearScreen(self):
         if name == 'nt': system('cls')
@@ -239,8 +241,11 @@ class CommandManager:
         
         if found: manager.show_movies(found)
 
-    def openMovie(self): 
-        ...
+    def openMovie(self, command): 
+        splitc = command.split(" ")
+        movie_id = int(splitc[1])
+        path = self.getMoviePath(movie_id)
+        subprocess.Popen(f'explorer /select,{path}')
 
     def doCommand(self, com):
         comdict = {
