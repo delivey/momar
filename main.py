@@ -176,9 +176,13 @@ class MovieManager:
 
                 if predefined_data:
                     if name in predefined_data:
-                        print(color + f"{ddata['idx']}. ({mdata['rating']}) {name}: {', '.join(mdata['genres'])}. ")
+                        movie = f"{ddata['idx']}. ({mdata['rating']}) {name}: {', '.join(mdata['genres'])}. "
+                        url = f"https://www.imdb.com/title/{ddata['id']}/"
+                        print(color + movie + f"           {url}")
                 else:
-                    print(color + f"{ddata['idx']}. ({mdata['rating']}) {name}: {', '.join(mdata['genres'])}. ")
+                    movie = f"{ddata['idx']}. ({mdata['rating']}) {name}: {', '.join(mdata['genres'])}. "
+                    url = f"https://www.imdb.com/title/{ddata['id']}/"
+                    print(color + movie + f"           {url}")
 
 class CommandManager:
     def __init__(self, manager):
